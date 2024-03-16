@@ -20,27 +20,27 @@ The Posts Service API provides endpoints to manage users, blogs, and comments wi
 ### Users
 1. **User Signup**
    - Method: POST
-   - Path: `/signup`
+   - Path: `/api/signup`
    - Summary: Endpoint to register a new user.
    - Request Body: `UserModel`
    - Response: ResponseEntity with a success message.
 
 2. **User Login**
    - Method: POST
-   - Path: `/login`
+   - Path: `/api/login`
    - Summary: Endpoint for user login.
    - Request Body: `LoginForm`
    - Response: String (likely a JWT token).
 
 3. **Get All Users**
    - Method: GET
-   - Path: `/users`
+   - Path: `/api/users`
    - Summary: Endpoint to retrieve all users. Requires admin role.
    - Response: List of `UserModel`.
 
 4. **Update User Profile**
    - Method: PUT
-   - Path: `/users/{userId}`
+   - Path: `/api/users/{userId}`
    - Summary: Endpoint to update a user's profile.
    - Path Variable: `userId`
    - Request Body: `UserModel`
@@ -56,7 +56,7 @@ The Posts Service API provides endpoints to manage users, blogs, and comments wi
 
 6. **Delete User**
    - Method: DELETE
-   - Path: `/users/{userId}`
+   - Path: `/api/users/{userId}`
    - Summary: Endpoint to delete a user. Requires admin role.
    - Path Variable: `userId`
    - Response: ResponseEntity with a success message.

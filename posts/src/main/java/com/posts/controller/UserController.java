@@ -1,4 +1,3 @@
-
 package com.posts.controller;
 
 import com.posts.model.UserModel;
@@ -9,11 +8,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -35,6 +36,7 @@ public class UserController {
 
     @Operation(summary = "Get All Users")
     @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<UserModel> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -45,9 +47,10 @@ public class UserController {
         userService.updateProfile(userId, userModel);
         return ResponseEntity.ok("User profile updated successfully.");
     }
-    
+
     @Operation(summary = "Update User")
     @PutMapping("/users/{userId}")
+    @PreAuthorize("#userId == principal.userId or hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> updateUser(@PathVariable Long userId, @Valid @RequestBody UserModel userModel) {
         userModel.setUserId(userId);
         userService.updateUser(userModel);
@@ -56,6 +59,7 @@ public class UserController {
 
     @Operation(summary = "Delete User")
     @DeleteMapping("/users/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully.");
